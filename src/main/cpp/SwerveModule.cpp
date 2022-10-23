@@ -13,7 +13,7 @@ SwerveModule::SwerveModule(const int driveMotorChannel,
                            const double offset)
     : m_driveMotor(driveMotorChannel, rev::CANSparkMax::MotorType::kBrushless),
       m_turningMotor(turningMotorChannel, rev::CANSparkMax::MotorType::kBrushless),
-      m_turningEncoder(turningEncoderChannel, offset)
+      m_turningEncoder(turningEncoderChannel, offset), m_drivechannel(driveMotorChannel)
       {
   // Set the distance per pulse for the drive encoder. We can simply use the
   // distance traveled for one rotation of the wheel divided by the encoder
@@ -31,6 +31,8 @@ SwerveModule::SwerveModule(const int driveMotorChannel,
   // to be continuous.
   m_turningPIDController.EnableContinuousInput(
       -units::radian_t(wpi::numbers::pi), units::radian_t(wpi::numbers::pi));
+
+  
 }
 
 frc::SwerveModuleState SwerveModule::GetState() {
@@ -62,7 +64,8 @@ void SwerveModule::SetDesiredState(
     //   m_driveMotor.Set(driveOutput);
     //   m_turningMotor.Set(turnOutput);
     // }
-      m_driveMotor.Set(0);
-      m_turningMotor.Set(0);
+      if (m_drivechannel == 6) printf("DriveOutput: %5.2f\n", driveOutput);
+      m_driveMotor.Set(driveOutput/12);
+      m_turningMotor.Set(turnOutput);
     // if modules are moving without input check Robot.cpp and increase deadbands
 }

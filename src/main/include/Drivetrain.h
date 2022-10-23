@@ -25,22 +25,29 @@ class Drivetrain {
              bool fieldRelative);
   void UpdateOdometry();
 
-  static constexpr units::meters_per_second_t kMaxSpeed = 1_mps;
-    //   4.4196_mps;  // 3 meters per second
+  static constexpr units::meters_per_second_t kMaxSpeed = 
+      4.4196_mps;  // 3 meters per second
   static constexpr units::radians_per_second_t kMaxAngularSpeed{
-      wpi::numbers::pi};  // 1/2 rotation per second. It is unclear if this speed is accurate, it likely is not
+      2 * wpi::numbers::pi};  // 1 rotation per second. It is unclear if this speed is accurate, it likely is not
 
  private:
+ #if 0
   frc::Translation2d m_frontLeftLocation{+0.31369_m, +0.31369_m};
   frc::Translation2d m_frontRightLocation{+0.31369_m, -0.31369_m};
   frc::Translation2d m_backLeftLocation{-0.31369_m, +0.31369_m};
   frc::Translation2d m_backRightLocation{-0.31369_m, -0.31369_m};
+ #else
+  frc::Translation2d m_frontLeftLocation{+0.31369_m, -0.31369_m};
+  frc::Translation2d m_frontRightLocation{+0.31369_m, +0.31369_m};
+  frc::Translation2d m_backLeftLocation{-0.31369_m, -0.31369_m};
+  frc::Translation2d m_backRightLocation{-0.31369_m, +0.31369_m};
+ #endif
 
   //driveMotorChannel, turningMotorChannel, turningEncoderChannel, offset
-  SwerveModule m_frontLeft{5, 1, 0, 0};
-  SwerveModule m_frontRight{6, 2, 1, 0};
-  SwerveModule m_backLeft{7, 3, 2, 0};
-  SwerveModule m_backRight{8, 4, 3, 0};
+  SwerveModule m_frontLeft{5, 1, 0, -146.60};
+  SwerveModule m_frontRight{6, 2, 1, -74.53};
+  SwerveModule m_backLeft{7, 3, 2, 138.25};
+  SwerveModule m_backRight{8, 4, 3, 16.88};
 
   hb::pigeonGyro m_gyro{0};
 

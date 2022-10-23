@@ -31,5 +31,7 @@ namespace hb {
        */
       double GetRate();
 
+    private:
+      const int m_ID;
   };
 } // namespace hb

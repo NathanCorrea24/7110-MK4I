@@ -33,5 +33,6 @@ namespace hb {
     private:
 
       const double m_offset;
+      const int m_ID;
   };
 } // namespace hb
